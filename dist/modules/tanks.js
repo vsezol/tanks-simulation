@@ -21,14 +21,14 @@ var ATank = /** @class */ (function () {
 }());
 var Tank = /** @class */ (function (_super) {
     __extends(Tank, _super);
-    function Tank(y) {
+    function Tank(y, x, type) {
         var _this = _super.call(this) || this;
+        _this.tankType = 'Standart';
         _this.damage = 100;
         _this.rotateAngle = 360;
         _this.missСhance = 0.25;
         _this.fireTemp = 1;
         _this.hp = 200;
-        _this.x = 0;
         _this.isMissing = function (dist) {
             return Math.random() < _this.missСhance + dist / 50;
         };
@@ -52,7 +52,18 @@ var Tank = /** @class */ (function (_super) {
             }
         };
         _this.getDamage = function () { return _this.damage; };
+        _this.getFireTemp = function () { return _this.fireTemp; };
+        _this.getType = function () { return _this.type; };
+        _this.getId = function () { return _this.id; };
+        _this.takeDamage = function (dmg) {
+            _this.hp -= dmg;
+        };
+        _this.getParams = function () { return [_this.id, _this.tankType, _this.hp]; };
+        _this.getCords = function () { return [_this.x, _this.y]; };
         _this.y = y;
+        _this.x = x;
+        _this.type = type;
+        _this.id = x + type + y;
         _this.canChangeY = Math.random() > 0.5 ? true : false;
         return _this;
     }
@@ -61,8 +72,9 @@ var Tank = /** @class */ (function (_super) {
 exports.Tank = Tank;
 var UltraTank = /** @class */ (function (_super) {
     __extends(UltraTank, _super);
-    function UltraTank(y) {
-        var _this = _super.call(this, y) || this;
+    function UltraTank(y, x, type) {
+        var _this = _super.call(this, y, x, type) || this;
+        _this.tankType = 'Ultra';
         _this.damage = 200;
         _this.rotateAngle = 180;
         _this.missСhance = 0.5;
@@ -75,8 +87,9 @@ var UltraTank = /** @class */ (function (_super) {
 exports.UltraTank = UltraTank;
 var AccurateTank = /** @class */ (function (_super) {
     __extends(AccurateTank, _super);
-    function AccurateTank(y) {
-        var _this = _super.call(this, y) || this;
+    function AccurateTank(y, x, type) {
+        var _this = _super.call(this, y, x, type) || this;
+        _this.tankType = 'Accurate';
         _this.damage = 50;
         _this.rotateAngle = 90;
         _this.missСhance = 0.1;
