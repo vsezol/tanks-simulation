@@ -1,0 +1,11 @@
+{
+  "name": "tanks-simulation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vsezol/tanks-simulation.git",
+  "author": "vsezol <vsevolod.zolotov02@mail.ru>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
+}
