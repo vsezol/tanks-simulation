@@ -1,28 +1,6 @@
-abstract class ATank {
-  protected abstract type: string
-  protected abstract id: string
-  protected abstract damage: number
-  protected abstract rotateAngle: number
-  protected abstract missСhance: number
-  protected abstract fireTemp: number
-  protected abstract hp: number
-  protected abstract x: number
-  protected abstract y: number
-  protected abstract canChangeY: boolean
+import ATank from './abstractTank'
 
-  abstract isMissing(dist: number): boolean
-  abstract run(): void
-  abstract isDead(): boolean
-  abstract changeY(): boolean
-  abstract getDamage(): number
-  abstract takeDamage(dmg: number): void
-  abstract getFireTemp(): number
-  abstract getType(): string
-  abstract getId(): string
-  abstract getParams(): any[]
-  abstract getCords(): [number, number]
-}
-
+// standart tank with default params
 export class Tank extends ATank {
   protected tankType: string = 'Standart'
   protected type: string
@@ -45,15 +23,25 @@ export class Tank extends ATank {
     this.canChangeY = Math.random() > 0.5 ? true : false
   }
 
+  // check missing
   isMissing = (dist: number): boolean =>
-    Math.random() < this.missСhance + dist / 50
+    Math.random() < this.missСhance + dist / 25
 
+  // check dead
   isDead = (): boolean => this.hp <= 0
 
+  // run
   run = (): void => {
-    this.x++
+    if (this.type === 'blue') {
+      this.x++
+      if (this.x > 9) this.x = 9
+    } else {
+      this.x--
+      if (this.x < 0) this.x = 0
+    }
   }
 
+  // change line
   changeY = (): boolean => {
     if (this.canChangeY) {
       if (Math.random() > 0.5) {
@@ -69,9 +57,13 @@ export class Tank extends ATank {
   }
 
   getDamage = (): number => this.damage
+
   getFireTemp = (): number => this.fireTemp
+
   getType = (): string => this.type
+
   getId = (): string => this.id
+
   takeDamage = (dmg: number): void => {
     this.hp -= dmg
   }
@@ -81,6 +73,7 @@ export class Tank extends ATank {
   getCords = (): [number, number] => [this.x, this.y]
 }
 
+// tank with ultra gun
 export class UltraTank extends Tank {
   protected tankType: string = 'Ultra'
   protected damage: number = 200
@@ -93,6 +86,7 @@ export class UltraTank extends Tank {
   }
 }
 
+// tank with accurate gun
 export class AccurateTank extends Tank {
   protected tankType: string = 'Accurate'
   protected damage: number = 50

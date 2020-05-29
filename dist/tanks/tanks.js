@@ -12,13 +12,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccurateTank = exports.UltraTank = exports.Tank = void 0;
-var ATank = /** @class */ (function () {
-    function ATank() {
-    }
-    return ATank;
-}());
+var abstractTank_1 = __importDefault(require("./abstractTank"));
+// standart tank with default params
 var Tank = /** @class */ (function (_super) {
     __extends(Tank, _super);
     function Tank(y, x, type) {
@@ -29,10 +29,13 @@ var Tank = /** @class */ (function (_super) {
         _this.missСhance = 0.25;
         _this.fireTemp = 1;
         _this.hp = 200;
+        // check missing
         _this.isMissing = function (dist) {
             return Math.random() < _this.missСhance + dist / 25;
         };
+        // check dead
         _this.isDead = function () { return _this.hp <= 0; };
+        // run
         _this.run = function () {
             if (_this.type === 'blue') {
                 _this.x++;
@@ -45,6 +48,7 @@ var Tank = /** @class */ (function (_super) {
                     _this.x = 0;
             }
         };
+        // change line
         _this.changeY = function () {
             if (_this.canChangeY) {
                 if (Math.random() > 0.5) {
@@ -77,8 +81,9 @@ var Tank = /** @class */ (function (_super) {
         return _this;
     }
     return Tank;
-}(ATank));
+}(abstractTank_1.default));
 exports.Tank = Tank;
+// tank with ultra gun
 var UltraTank = /** @class */ (function (_super) {
     __extends(UltraTank, _super);
     function UltraTank(y, x, type) {
@@ -94,6 +99,7 @@ var UltraTank = /** @class */ (function (_super) {
     return UltraTank;
 }(Tank));
 exports.UltraTank = UltraTank;
+// tank with accurate gun
 var AccurateTank = /** @class */ (function (_super) {
     __extends(AccurateTank, _super);
     function AccurateTank(y, x, type) {
